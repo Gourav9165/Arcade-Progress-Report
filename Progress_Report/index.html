@@ -1,0 +1,3985 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Cloud Arcade Facilitator</title>
+    <link rel="icon" href="faviconn.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8eaf6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            user-select: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, #ffffff, #b7b5b529);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 15px 0;
+            background: linear-gradient(135deg, #a6cdf457, #91b9dc, #a6cdf457);
+            color: #2c3e50;
+            border-radius: 15px;
+            position: relative;
+            animation: slideIn 0.8s ease-in-out;
+            text-align: center;
+        }
+        
+        .header .head {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header .logo {
+            background-image: url('https://i.ibb.co/gwFSW8B/image.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 180px;
+            height: 180px;
+            margin-right: 15px;
+        }
+
+        .header .text {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .social-icons {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header .social-icons a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            color: #2c3e50;
+            font-size: 24px;
+            transition: color 0.3s, transform 0.3s;
+            margin: 0 10px;
+        }
+
+        .header .social-icons a:hover {
+            color: #0077B5;
+            transform: scale(1.1);
+        }
+
+        .header .social-icons span {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-left: 5px;
+        }
+
+        .table thead th {
+            background-color: #91b9dc;
+            color: black;
+            animation: fadeIn 0.8s ease-in-out;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .table td, .table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .status {
+            display: inline-block;
+            width: 100%;
+            padding: 5px 15px;
+            border-radius: 25px;
+        }
+
+        .great-job {
+            background-color: #60f48086;
+            color: #1f6f31;
+        }
+
+        .havent {
+            background-color: #f5a1a8a8;
+            color: #631d24;
+        }
+
+        .table-responsive {
+            border-radius: 15px;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.326);
+            border-radius: 12px;
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .header .logo {
+                width: 70px;
+                height: 70px;
+                margin-right: 0; /* Center the logo on smaller screens */
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .header .social-icons a {
+                font-size: 20px;
+            }
+
+            .header .social-icons span {
+                font-size: 14px;
+            }
+
+            .table td, .table th {
+                font-size: 14px;
+            }
+
+            #searchInput {
+                padding: 3px 8px;
+                margin-bottom: 5px;
+                border-radius: 7px;
+                margin-top: 5px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header .logo {
+                width: 60px;
+                height: 60px;
+                margin-right: 0; /* Center the logo on smaller screens */
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .header .social-icons a {
+                font-size: 14px;
+            }
+
+            .header .social-icons span {
+                font-size: 10px;
+            }
+
+            .table td, .table th {
+                font-size: 12px;
+            }
+
+            #searchInput {
+                padding: 3px 8px;
+                margin-bottom: 5px;
+                border-radius: 7px;
+                margin-top: 5px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 431px) {
+            .header .social-icons a {
+                font-size: 8px;
+            }
+
+            .header .social-icons span {
+                font-size: 7.2px;
+                margin-right: 0;
+            }
+
+            .table td, .table th {
+                font-size: 9px;
+            }
+
+            .text h1 {
+                font-size: 13px;
+            }
+
+            .text p {
+                font-size: 10px;
+            }
+
+            .head{
+                margin-bottom: 7px;
+            }
+
+            #searchInput {
+                padding: 3px 8px;
+                margin-bottom: 5px;
+                border-radius: 7px;
+                margin-top: 5px;
+                font-size: 10px;
+            }
+        }
+
+        /* Popup Box Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            padding-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #b7b5b5b8);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+            border-radius: 15px;
+            display: none;
+            animation: popupSlideIn 1s forwards;
+        }
+
+        @keyframes popupSlideIn {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        @keyframes popupSlideOut {
+            from { transform: translate(-50%, -50%); opacity: 1; }
+            to { transform: translate(-50%, -60%); opacity: 0; }
+        }
+
+        .popup p {
+            font-size: 16px;
+            color: #313131;
+            margin-bottom: 20px;
+        }
+
+        .popup p i {
+            font-weight: 550;
+        }
+
+        .popup button {
+            padding: 10px 70px;
+            background-color: #73a5d099;
+            color: black;
+            border: none;
+            border-radius: 25px;
+            border: 2px solid #344b5f53;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .popup button:hover {
+            background-color: #a1ccf4;
+        }
+
+        /* Blur background when popup is visible */
+        .blur {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        .heading {
+            text-align: center;
+            padding: 10px 0;
+            background: linear-gradient(135deg, #a6cdf457, #91b9dc);
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+
+        .heading h2 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 460px) {
+            .heading h2 {
+                font-size: 20px;
+            }
+            .popup p {
+                font-size: 13px;
+            }
+
+            .popup button {
+                padding: 8px 40px;
+                font-size: 16px;
+            }
+        }
+
+        .visit-link {
+            padding: 10px 20px;
+            background-color: #73a5d099;
+            color: black;
+            border: none;
+            border-radius: 25px;
+            border: 1px solid #344b5f53;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .visit-link:hover {
+            background-color: #a1ccf4;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .link {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="popup" id="popup">
+    <div class="heading">
+        <h2>⚠️ Important Note:⚠️</h2>
+    </div>
+        <p>The shown report is <b>till July 30, 12 P.M.</b> I will update it once we receive the latest report from the Arcade Team. <br> <i>Thank you for your patience!</i></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div class="container" id="content">
+        <div class="header">
+            <div class="head">
+                <div class="logo"></div>
+                <div class="text">
+                    <h1>Google Cloud Arcade Facilitator</h1>
+                    <p>By Team Gourav Sen & Hitansh Sharma</p>
+                </div>
+                <!--<div class="link">
+                    <a href="https://rsvp.withgoogle.com/events/arcade-facilitator/home" class="visit-link" target="_blank"><span>Facilitator Program <i class="ri-gamepad-fill"></i></span></a>
+                    <a href="https://go.cloudskillsboost.google/arcade" class="visit-link" target="_blank"><span>Google Arcade <i class="ri-game-fill"></i></span> </a>
+                    <a href="https://arcadehelper.vercel.app/pointscalculator" class="visit-link" target="_blank"><span>Points Calculator <i class="ri-calculator-fill"></i></span> </a>
+                </div>-->
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/gourav61432/" target="_blank"><i class="fab fa-linkedin"></i><span>Gourav Sen</span></a>
+                <a href="https://www.linkedin.com/in/hitansh-sharma-b52682234/" target="_blank"><i class="fab fa-linkedin"></i><span>Hitansh Sharma</span></a>
+                <a href="https://chat.whatsapp.com/EXBezhYoYLUIscWtDNHJQ4" target="_blank"><i class="fab fa-whatsapp"></i><span>Whatsapp Group</span></a>
+                <a href="https://arcadehelper.vercel.app/pointscalculator" target="_blank"><i class="fa-solid fa-calculator"></i><span>Points Calculator </span> </a>
+            </div>
+        </div>
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for names..">
+        <div class="table-responsive">
+            <table class="dataframe table table-striped">
+  <thead>
+    <tr style="text-align: center;">
+      <th>User Name</th>
+      <th>Access Code Redemption Status</th>
+      <th>Milestone Earned</th>
+      <th># of Skill Badges Completed</th>
+      <th># of Arcade Games Completed</th>
+      <th># of Trivia Games Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vivek Uraiti</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>63</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yash Sanodiya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>61</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pinnamaneni Abhinav Chowdary</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>48</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anurag Sakhare</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>47</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Alapati Sai Nikhil Balaji</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>43</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aryan Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>41</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shaurya Agrawal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>39</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Gayathri Veerasamy</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>38</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anusha Upadhyay</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>36</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>shalu patidar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>35</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Srilaasya Gollamudi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ASWIN A</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>31</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhijeet Rajak</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>31</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aniket kumar kashyap</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>30</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Patel Aryan</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>28</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jadav Kunj Amitkumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>27</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ankush</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>27</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>SHIVANG BHARDWAJ</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>27</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Guttula Bhuvaneshwar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>26</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yash Shah</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>26</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bhavana R M</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>26</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Praful Patil</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>25</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ANKUR KUMAR VERMA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>25</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sourabh Harode</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>23</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bhoomika Sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>20</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prajwal Nimje</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>20</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Manali Tharwani</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>19</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prince Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Akshita Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ANNAPOORNA V</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shubhangini Jadhav</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rohit Raj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Meghana Gummaddi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anil Yadav</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yash Shah</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sidvika Sangani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Parzival Blank</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanjana Devarapalli</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sakshi Ojha</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anupam Sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nihar Mittal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ironman Hulk</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Namitha Nerella</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Narayan Sen</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Priyanshu Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pradnya Gaitonde</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dev Dalal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Saumya Ghatole</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anshil Pratap Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sireesha Guggili</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sourav khilari</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Md Arfin</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Saxena</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>syed kashif</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>shashank</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dhruv Nadamuni</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vishnu Vardhan Janjirala</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ritika Kanojia</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ojasvini Suryawanshi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sneha Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kadaya urmila</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Avantika Chauhan</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rupali Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chaman Yadav</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shalom Melvin Hanotiya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>VINAYAK SEN</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vedansh Dixit</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Raveena Rajpal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanika Mahavir Patil</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>7</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Richard Paolo Medallon</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>7</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aesthetic Chakna</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>7</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayush Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ankit Kishor</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mohammad Afroz Alam</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Lekhana S</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rimjhim kumari</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Muskan Patel</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>amith gowda</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>hiro kira</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arijeet Panchotia</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Atharva Gujarathi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Tushar Vishwakarma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Bhardwaj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chaithhanya sai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Hitansh Dubey</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Katari Revanth Kumar Chowdary</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pawan Kumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshada Ramchandra Shinde</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Amrutha Sriya Ganjam</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yuvraj Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Parag Kumar Devda</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rucha Ramchandra Ikare</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Parag Kumar Devda</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chitransh Shrivastava</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Debahuti Mishra</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayush Namdev</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anjali sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>POOJA B</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shruti Sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>mohit patil</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>SHIVANG SHUKLA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Debarati Seal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Bhardwaj</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sireesha Guggili</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>PROJECT JAN</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prakriti Sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sidvika Sangani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ALOK SAHU</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dipti Nagvekar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kaushal Kumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>aniket kumar kashyap</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Noor Hasan Shaik</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bhupendra Rathoriya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Monika.A</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sunaina Pawar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aayush Sonkusle</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhishek Sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nidhi Ghura</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Suhani Ravindra Garud</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhishek Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>rani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Justin Benny</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sreeja</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Archana Nair</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rupal Gangrade</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>vipin sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vivek Mishra</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vicky Dhote</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jukanti Sreeja Rao</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rishabh Bhardwaj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nimmagadda Shivani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nimish Rathi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kuldeep Paday</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prableen Kaur Sandhu</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Durgesh Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Saumil Saxena</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aman Jayswal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chaitali Kulkarni</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ashwin A Pai</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vineeta Sen</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arpit Agarwal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chaman Yadav</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anupam Sharma</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Divya Jyoti Rao</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Garima Sen</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nikhil Kumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>R D SHARMA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shalini Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Lekha</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>RISHAV KUMAR</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vishwa Teja Bheemanathi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Subhash patel</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shad Warsi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vaishnavi Bodela</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sahil Sachin Patil</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vanshika pachauri</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayush Bhumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Devyansi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ADARSH KUMAR</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harsh Nandal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Piyush Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>D.V.Ranga</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mansi Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kundan Kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Meena</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ajitesh Sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Uddeshya Sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanskar Ranjan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Paras Saini</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nitin Diwkar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Alapati Sai Nikhil Balaji</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>avni jain</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arif Khurana</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anand Kumar kashyap</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>NITISH RAJ</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Choudhary</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>aniket kumar kashyap</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Brijesh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Brijesh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Soumya Gadagoni</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dipanshu Amrate</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pranjal Jaykumar Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayushi Kumari</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Tanisha borana</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Oshika Jain</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vataliya Bansi Rasikbhai</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Unnati Saraswat</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ruchita Srivastava</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Akhilesh upadhyay</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditi Rathore</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Diwakar shaw</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shashank Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Manikanta K</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Darshini j</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sneha Singh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Riya Kumari</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sahil Gohar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Firoz Haque</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anaz Jaleel</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>YGF</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>C Vishnu chakravarthy</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bhuvaneswari Cherukumilli</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rishika</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pushkraj Kulkarni</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rishika</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shrutija Mahendra Moon</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhijeet Rajak</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Akanksha Gajanan Bhadke</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anjali Anand Tamte</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shivansh Hingve</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nandani Tripathi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vinit muzalda</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Priyanshu Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Koushal Mujalde</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rohith Mallela</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Hrishikesh Bhargava</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aanchal Ramnani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Saurabh namdev</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arna Mandal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Radhika Dhakar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>bwcb</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anusha Malviya</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ravi Jha</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kabir</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>AMULYA K R</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>AAYUSH PANWAR</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kapil Singh Songare</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aashish kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rohith Mallela</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayush Bhumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Raj Kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Devanshi Rudola</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Karanam bhuvana chandrika</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Devashish Rameshbhai Macwan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Girish Kumar Seemakurthi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mithilesh Tiwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rishi Kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harsh Sharma</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jency Maheshwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Priyanshu Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Roshni Jeewani</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Preesha Vashisth</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anushka Kshirsagar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prateek Tiwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prachi Patel</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mohd Zaki ur Rahman Khan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prem Raj Barnwal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanjana kumari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ravi Katariya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ashutosh chandrawanshi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Siddhesh Bagul</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anupama sahu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sachin Kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sneha Sharma</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Fardeen Qureshi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aman Tiwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yashaswi Rai</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arjun Devadas</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anubhav Jain</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ragnee Kumari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Alfaiz Khan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vaibhav Kapse</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kunal Bansal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Alok Pratap Yadav</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aarchi Porwal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aryan Chauhan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Archisha Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ARYAN AJAYKUMAR PATEL</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prashant kumar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Lekhana S</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Tina Aswani</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ruchita Pandit</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rishitha Budumuru</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Krish Tundiya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aman Raj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Komal khursange</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Siri M M</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Tanishka mangal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Prayansh Jain</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anuj Rajput</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chandra Prakash Ojha</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Meghana Gummadi</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>TAMBADI RUCHIKA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Krishna Nimje</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Samarth Shrivastava</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pramod dhaker</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aashutosh Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>SUJEET PRAMANIK</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Amith gowda e</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yogendra Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Astha Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kaveri kesharwani</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Chinmay sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>S TEJAS</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bhupendra Rathioriya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>BUDUMURU RISHITHA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aryan Jaiswal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Astha Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Pushkar Shivani</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jyotima Jayswal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Khushi Baurasi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Anurag malviya</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Raj Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jatin Harchandani</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yenuga Ashok Kumar Reddy</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Akriti Raj</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditi Sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Debarati Seal</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Disha D</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>trendy status</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Khanak Agrawal</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>EKATVA KUMAR AWASTHI</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nishant Kumar Mahato</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shreeyansh Dixit</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shubhangini Jadhav</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshita Singh Kushwaha</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mangalya D. Phaye</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Simran Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sachin Tiwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nimish Rathi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Astha Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Jinesh Shah</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dhairy Shrivastava</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshita Singh Kushwaha</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shivansh Thapak</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dhairy Shrivastava</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Varun</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Amulya K R</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Palak Rai</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Khushi Singh Tanwar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rohit Manna</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ajay Prajapat</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harsh Gautam</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kanak b</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sonu Kumar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nakul Chouksey</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>siddheshwari sanjay lad</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Neeraj Katariya</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sneha Bajaj</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Himani zambare</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Mishra</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ruchik chatap</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sana Yasmine</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Praful Patil</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Himanshu Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayush Rai</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>K.Ganesh</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aayush Sonkusle</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dev Prakash</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ayushi Nagar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>DEVRISHI SHARMA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Sharma</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshal Jarori</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Kartik Soni</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sia Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Turanyaa Garg</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mayur Dayaram Nikam</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Nakul kishor padiyar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhay Madhav Gore</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dhairy Shrivastava</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Dhanush kalkur</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ASHVIJA V M</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>SAKTHI S</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Singh Kushwah</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vaibhav C</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Singh Kushwah</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sneha Mastagar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Govind Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>HARSH KANOJIYA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshita sharma</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yashaswini Bhat</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vinayak Sen</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Lalit Kumar Pandit</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arpit Mohankar</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rupal Gangrade</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Rathore</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>MD ANAS</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mehul Gupta</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Himanshu devkar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vivek Kumar Mishra</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>parth saxena</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhishek Ghosi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>SOBIN K SHYBI</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>VANSH ARYA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sucheta Das</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Astha Singh</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ARYAN GUPTA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Petnikoti Naga Venkata Pradyoth</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ARYAN GUPTA</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aditya Nadamuni</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mohammad Adnan</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Ajay D</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shreya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>PRIYA ANAND</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Yalamanchili Tanmai Sabari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aastha Sanodiya</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Janvi Kumari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Adarsh Gupta</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Janvi Kumari</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Arthi Suryavamshi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Astha yadav</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Aman Raj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>MUTHIESWARI S</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Garvit Jain</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Shivam kaushik</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Swastik Singha Roy</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanya Modi</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rajat Dode</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Rucha Ramchandra Ikare</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sanjana Devarapalli</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshvardhan Nirbhavane</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ANAND PL</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Misthi lakhera</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Trupti Tanaji Chopadar</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>HARSH KANOJIYA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshita Singh Kushwaha</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>bethina lavanya</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Vaishnavi Tayde</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Durva Amin</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sudipa Bhattacharjee</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Piyush Namdev</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhinav Bhardwaj</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Sri harshitha B</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Isaac Gandrothu</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ASHISH ANAND</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harsh Prajapati</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Archika Alok</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>kashyap vadgama</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Himani zambare</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Abhi jain</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Swagat Prasad Nahak</td>
+      <td><span class="status great-job">Great👌</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Roshani Tiwari</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>RUDRESH SHARMA</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Harshal Jarori</td>
+      <td><span class="status havent">Haven't😔</span></td>
+      <td>None</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </div>
+
+    <script>
+        // Show the popup when the page loads
+        window.onload = function() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("content").classList.add("blur");
+        };
+
+        // Function to close the popup with animation
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            popup.style.animation = "popupSlideOut 0.3s forwards";
+            setTimeout(() => {
+                popup.style.display = "none";
+                document.getElementById("content").classList.remove("blur");
+            }, 200);
+        }
+
+        
+
+        function searchTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.querySelector(".table");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // Initially hide all rows except the header
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = ""; // Show the row if any cell matches the search
+                            break; // No need to check other cells in the same row
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
